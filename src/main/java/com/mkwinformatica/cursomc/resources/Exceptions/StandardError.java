@@ -16,8 +16,6 @@ public class StandardError implements Serializable {
 		this.timeStamp = timeStamp;
 	}
 
-
-
 	public Integer getStatus() {
 		return status;
 	}
@@ -33,7 +31,6 @@ public class StandardError implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
 
 	public Long getTimeStamp() {
 		return timeStamp;
