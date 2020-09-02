@@ -67,6 +67,5 @@ public class CursomcApplication implements CommandLineRunner{
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		
 	}
 }
