@@ -99,7 +99,7 @@ public class DBService {
 		Cidade c3 = new Cidade(null, "Campinas", est2);
 		
 		Cliente cli1 = new Cliente(null, "Maria Silva", "marcoskorbeswerle@hotmail.com", "3678912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
-		Cliente cli2 = new Cliente(null, "Ana Costa", "marcoskwerle@gmail.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli2 = new Cliente(null, "Ana Costa", "ana@gmail.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		
 		cli2.addPeril(Perfil.ADMIN);
 		
