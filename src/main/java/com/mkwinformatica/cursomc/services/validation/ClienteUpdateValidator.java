@@ -14,7 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.mkwinformatica.cursomc.domain.Cliente;
 import com.mkwinformatica.cursomc.dto.ClienteDTO;
 import com.mkwinformatica.cursomc.repositories.ClienteRepository;
-import com.mkwinformatica.cursomc.resources.Exceptions.FieldMessage;
+import com.mkwinformatica.cursomc.resources.exceptions.FieldMessage;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 

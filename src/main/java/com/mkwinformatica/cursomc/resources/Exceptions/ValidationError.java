@@ -1,4 +1,4 @@
-package com.mkwinformatica.cursomc.resources.Exceptions;
+package com.mkwinformatica.cursomc.resources.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
