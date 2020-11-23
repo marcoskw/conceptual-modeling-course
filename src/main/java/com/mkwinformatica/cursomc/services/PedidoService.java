@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.mkwinformatica.cursomc.domain.Cliente;
 import com.mkwinformatica.cursomc.domain.ItemPedido;
 import com.mkwinformatica.cursomc.domain.PagamentoComBoleto;
 import com.mkwinformatica.cursomc.domain.Pedido;
@@ -14,7 +17,11 @@ import com.mkwinformatica.cursomc.domain.enums.EstadoPagamento;
 import com.mkwinformatica.cursomc.repositories.ItemPedidoRepository;
 import com.mkwinformatica.cursomc.repositories.PagamentoRepository;
 import com.mkwinformatica.cursomc.repositories.PedidoRepository;
+import com.mkwinformatica.cursomc.security.UserSS;
+import com.mkwinformatica.cursomc.services.exceptions.AuthorizationException;
 import com.mkwinformatica.cursomc.services.exceptions.ObjectNotFoundException;
+
+
 @Service
 public class PedidoService {
 	
@@ -45,7 +52,6 @@ public class PedidoService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 	
-	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -65,7 +71,17 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
-		emailService.sendOrderConfirmationHtmlEmail(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
+	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente =  clienteService.find(user.getId());
+		return repo.findByCliente(cliente, pageRequest);
 	}
 }
